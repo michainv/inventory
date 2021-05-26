@@ -1,9 +1,14 @@
-package internship.inventory.employee;
+package internship.inventory.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Employee {
+import javax.persistence.*;
 
+@Entity
+@Table (name = "employee")
+public class Employee {
+    @Id
+    @Column(name = "id")
     private int id;
     private String name;
     private String email;
@@ -11,6 +16,9 @@ public class Employee {
 
 
 
+    public Employee(){
+
+    }
 
     public Employee(@JsonProperty("id") int id,
                     @JsonProperty("name")String name,
