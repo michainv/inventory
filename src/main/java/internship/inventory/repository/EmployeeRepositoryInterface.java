@@ -1,12 +1,14 @@
 package internship.inventory.repository;
 
 import internship.inventory.models.Employee;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface EmployeeRepositoryInterface extends CrudRepository<Employee,Integer> {
-   Employee findById(int id);
+@Repository
+public interface EmployeeRepositoryInterface extends JpaRepository<Employee,Integer> {
 
-   void updateEmployee(int id);
+   List<Employee> findByName(String name);
+
 }

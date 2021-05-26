@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -31,23 +29,36 @@ public class EmployeeService {
    }
 
 
-    public void deleteEmployeeByID(int id){
-       employeeRepository.deleteById(id);
+    public boolean deleteEmployeeByID(Integer id){
+       if(employeeRepository.existsById(id)) {
+           employeeRepository.deleteById(id);
+           return true;
+       }
+       return false;
     }
 
-    public boolean updateEmployee(int id,Employee employee){
-//        if(employees.containsKey(id)){
-//            employees.put(id,employee);
+//    public boolean updateEmployee(int id,Employee employee){
+//        if(employeeRepository.existsById(id)) {
+//            Employee prevEmployee = getEmployeeById(id);
+//            prevEmployee.setEmail(employee.getEmail());
+//            prevEmployee.setName(employee.getName());
+//            prevEmployee.setCompany_ID(employee.getCompany_ID());
 //            return true;
 //        }
-        return false;
+//        return false;
+//    }
+
+    public Optional<Employee> getEmployeeById(Integer id){
+        return employeeRepository.findById(id);
     }
 
-    public Employee getEmployeeById(int id){
-           return employeeRepository.findById(id);
+
+    public List<Employee> getEmployeeByName(String name){
+        System.out.println("called by name");
+        return employeeRepository.findByName(name);
     }
 
-
-    public void addEmployee() {
+    public void addEmployee(Employee employee) {
+        employeeRepository.save(employee);
     }
 }

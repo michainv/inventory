@@ -1,80 +1,37 @@
 package internship.inventory.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
+import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table (name = "employee")
 public class Employee {
     @Id
-    @Column(name = "id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",updatable = false ,nullable = false)
+    private Integer id;
+    @NotNull
+    @Column(name = "name",updatable = true ,nullable = false,length = 255)
     private String name;
+    @NotNull
     private String email;
-    private int company_ID;
 
 
 
-    public Employee(){
+    @ManyToOne
+    @JoinColumn(name = "company_id",nullable = false)
+    @JsonBackReference
+    private Company company;
 
-    }
 
-    public Employee(@JsonProperty("id") int id,
-                    @JsonProperty("name")String name,
-                    @JsonProperty("email")String email,
-                    @JsonProperty("company_id")int company_ID) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.company_ID = company_ID;
-    }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", company_ID=" + company_ID +
-                '}';
-    }
-
-    public void updateInfo(String name,String email,int companyId){
-        this.name = name;
-        this.email = email;
-        this.company_ID = companyId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getCompany_ID() {
-        return company_ID;
-    }
-
-    public void setCompany_ID(int company_ID) {
-        this.company_ID = company_ID;
-    }
 }

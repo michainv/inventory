@@ -5,8 +5,8 @@ import internship.inventory.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/employees/")
@@ -21,27 +21,30 @@ public class EmployeeController {
 
     @GetMapping("get/all")
     public List<Employee> getAllEmployees() {
-        System.out.println("called controoler ");
-//       employeeService.addEmployee(employee);
-//        return null;
+        System.out.println("CALLED GET ALL");
         return employeeService.getAllEmployees();
     }
 
-
-
-    @GetMapping("/get/{id}")
-    public Employee getEmployeeByID(@PathVariable("id") int id) {
+    @GetMapping("/get/id/{id}")
+    public Optional<Employee> getEmployeeByID(@PathVariable("id") Integer id) {
+        System.out.println("CALLED GET BY ID");
         return employeeService.getEmployeeById(id);
     }
 
+    @GetMapping("/get/name/{name}")
+    public List<Employee> getEmployeeByName(@PathVariable("name") String name){
+        System.out.println("CALLED GET BY NAME");
+        return employeeService.getEmployeeByName(name);
+    }
+
     @DeleteMapping("/delete/{id}")
-    public void deleteEmployeeByID(@PathVariable("id") int id){
-        System.out.println("inside delete");
+    public void deleteEmployeeByID(@PathVariable("id") Integer id){
+        System.out.println("CALLED DELETE");
         employeeService.deleteEmployeeByID(id);
     }
 
     @PutMapping("/update/{id}")
-    public int updateEmployee(@PathVariable("id") int id){
+    public int updateEmployee(@PathVariable("id") Integer id){
         System.out.println("updating");
         return 1;
 //        return employeeService.updateEmployee(id,employee);
@@ -49,8 +52,8 @@ public class EmployeeController {
 
     @PostMapping(path= "/add")
     public void addEmployee(@RequestBody  Employee employee){
-//        System.out.println("inside get addEmployee of controller");
-//        employeeService.addEmployee(employee);
+        System.out.println("CALLED POST");
+        employeeService.addEmployee(employee);
 
     }
 
