@@ -1,5 +1,6 @@
 package internship.inventory.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,10 +25,12 @@ public class Device {
 
     @ManyToOne
     @JoinColumn(name = "company_id",nullable = false)
+    @JsonBackReference
     private Company company;
 
     @ManyToOne
     @JoinColumn(name = "employee_id",nullable = false)
+    @JsonBackReference
     private Employee employee;
 
 

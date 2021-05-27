@@ -15,8 +15,7 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    public List<Company> getAllEmployees(){ return (ArrayList<Company>) companyRepository.findAll();
-    }
+    public List<Company> getAllCompanies(){ return (ArrayList<Company>) companyRepository.findAll(); }
 
 
 }

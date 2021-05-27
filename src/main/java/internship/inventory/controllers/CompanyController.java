@@ -25,7 +25,7 @@ public class CompanyController {
     @GetMapping("get/all")
     public List<Company> getAllEmployees() {
         System.out.println("CALLED GET ALL");
-        return companyService.getAllEmployees();
+        return companyService.getAllCompanies();
     }
 
 
