@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 @Getter
@@ -25,12 +26,15 @@ public class Employee {
     @NotNull
     private String email;
 
-
+    @Column(name ="company_id",insertable = false,updatable = false)
+    private Integer company_id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id",nullable = false)
+    @JoinColumn(name = "company_id",referencedColumnName = "id")
     @JsonBackReference
     private Company company;
+
+
 
 
 

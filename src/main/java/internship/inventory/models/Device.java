@@ -20,16 +20,22 @@ public class Device {
     @Column(name = "name")
     private String name;
 
-    @Column(name ="type")
+    @Column(name = "type")
     private String type;
 
+//    @Column(name = "company_id",insertable = false , updatable = false)
+//    private int company_id;
+//
+//    @Column(name = "employee_id",insertable = false , updatable = false)
+//    private int employee_id;
+
     @ManyToOne
-    @JoinColumn(name = "company_id",nullable = false)
+    @JoinColumn(name = "company_id",referencedColumnName = "id",nullable = false)
     @JsonBackReference
     private Company company;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id",nullable = false)
+    @JoinColumn(name = "employee_id",referencedColumnName = "id",nullable = false)
     @JsonBackReference
     private Employee employee;
 

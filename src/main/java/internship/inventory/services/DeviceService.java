@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DeviceService {
 
@@ -16,6 +18,11 @@ public class DeviceService {
 
 
     public List<Device> getAllDevices() {
+
         return deviceRepository.findAll();
+    }
+
+    public Optional<Device> getDeviceBySN(String serial_number) {
+        return deviceRepository.findBySerialNumber(serial_number);
     }
 }
