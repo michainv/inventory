@@ -1,7 +1,7 @@
 package internship.inventory.services;
 
 import internship.inventory.models.Employee;
-import internship.inventory.repository.EmployeeRepositoryInterface;
+import internship.inventory.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +12,10 @@ import java.util.*;
 @Service
 public class EmployeeService {
 
-//    HashMap<Integer , Employee> employees;
 
     @Autowired
-    EmployeeRepositoryInterface employeeRepository;
+    private EmployeeRepository employeeRepository;
 
-    @Autowired
-    public EmployeeService(){
-//        this.employees = new HashMap<>();
-    }
 
 
 
