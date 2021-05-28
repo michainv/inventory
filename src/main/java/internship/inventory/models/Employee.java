@@ -1,13 +1,11 @@
 package internship.inventory.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import lombok.*;
-import org.hibernate.annotations.NaturalId;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,27 +21,26 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",updatable = false ,nullable = false)
+    @Column(name = "id",updatable = false )
     private Integer id;
 
-    @NotNull
-    @Column(name = "name",updatable = true ,nullable = false,length = 255)
+
+    @Column(name = "name",updatable = true ,nullable = false,length = 45)
     private String name;
-    @NotNull
+
+    @Column(name = "email",updatable = true ,nullable = false,length = 45)
     private String email;
 
-    @Column(name ="company_id",insertable = false,updatable = false)
+    @Column(name = "company_id",updatable = true ,nullable = false,length = 45)
     private Integer company_id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id",referencedColumnName = "id")
-    @OnDelete(action= OnDeleteAction.NO_ACTION)
-    @JsonBackReference
-    private Company company;
+    @JsonBackReference(value="work_company")
+    private Company work_company;
 
 
 
-    @OneToMany(mappedBy="employee",orphanRemoval = true)
+    @OneToMany(mappedBy="owner_employee")
     private List<Device> devices;
 
 //   @PreRemove

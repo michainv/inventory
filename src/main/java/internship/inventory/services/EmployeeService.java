@@ -1,5 +1,6 @@
 package internship.inventory.services;
 
+import internship.inventory.models.Company;
 import internship.inventory.models.Employee;
 import internship.inventory.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-
+    @Autowired
+    private CompanyService companyService ;
 
 
    public List<Employee> getAllEmployees(){
@@ -24,36 +26,49 @@ public class EmployeeService {
    }
 
 
-    public boolean deleteEmployeeByID(Integer id){
-       if(employeeRepository.existsById(id)) {
-           employeeRepository.deleteById(id);
-           return true;
-       }
-       return false;
-    }
-
-//    public boolean updateEmployee(int id,Employee employee){
-//        if(employeeRepository.existsById(id)) {
-//            Employee prevEmployee = getEmployeeById(id);
-//            prevEmployee.setEmail(employee.getEmail());
-//            prevEmployee.setName(employee.getName());
-//            prevEmployee.setCompany_ID(employee.getCompany_ID());
-//            return true;
-//        }
-//        return false;
-//    }
-
     public Optional<Employee> getEmployeeById(Integer id){
         return employeeRepository.findById(id);
     }
 
-
-    public List<Employee> getEmployeeByName(String name){
-        System.out.println("called by name");
-        return employeeRepository.findByName(name);
-    }
+    public List<Employee> getEmployeeByName(String name){ return employeeRepository.findByName(name); }
 
     public void addEmployee(Employee employee) {
-        employeeRepository.save(employee);
+        Optional <Company> work_company = companyService.getCompanyById(employee.getCompany_id());
+        if(work_company.isPresent()){
+            employee.setWork_company(work_company.get());
+            employeeRepository.save(employee);
+        }
+        else{
+            System.out.println("INVALID COMPANY ID");
+        }
+
     }
+
+
+    public boolean deleteEmployeeByID(Integer id){
+        if(employeeRepository.existsById(id)) {
+            employeeRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public void updateEmployee(Employee employee) {
+       Integer id = employee.getId();
+
+       if(employeeRepository.existsById(id)){
+             Optional<Employee> old = employeeRepository.findById(id);
+             if(employee.getName()!=null){
+                old.get().setName(employee.getName());
+             }
+             if(employee.getEmail()!=null){
+             old.get().setEmail(employee.getEmail());
+             }
+             if(employee.getWork_company()!=null) {
+                 old.get().setWork_company(employee.getWork_company());
+             }
+       }
+    }
+
+
 }

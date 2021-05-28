@@ -25,4 +25,10 @@ public class DeviceService {
     public Optional<Device> getDeviceBySN(String serial_number) {
         return deviceRepository.findBySerialNumber(serial_number);
     }
+
+    public void addDevice(Device device) {
+        deviceRepository.save(device);
+    }
+
+
 }

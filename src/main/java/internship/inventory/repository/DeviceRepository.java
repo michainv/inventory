@@ -16,4 +16,6 @@ public interface DeviceRepository extends JpaRepository<Device,String> {
 
     @Query(value = "SELECT * from device d where d.serial_number= :serial_number",nativeQuery = true)
     Optional<Device> findBySerialNumber(@Param("serial_number") String serial_number);
+
+
 }

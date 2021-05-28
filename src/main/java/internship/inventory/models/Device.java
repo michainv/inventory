@@ -15,30 +15,25 @@ import javax.persistence.*;
 @Table(name = "device")
 public class Device {
     @Id
-    @Column(name ="serial_number")
+    @Column(name ="serial_number",length = 255,nullable = false)
     private String serial_number;
 
-    @Column(name = "name")
+    @Column(name = "name",length = 255,nullable = false)
     private String name;
 
-    @Column(name = "type")
+    @Column(name = "type",length = 255,nullable = false)
     private String type;
 
-    @Column(name = "company_id",insertable = false , updatable = false)
-    private Integer company_id;
-
-    @Column(name = "employee_id",insertable = false , updatable = false)
-    private Integer employee_id;
 
     @ManyToOne(fetch=FetchType.LAZY,optional=false)
     @JoinColumn(name = "company_id",referencedColumnName = "id",nullable = false)
-    @JsonBackReference
-    private Company company;
+    @JsonBackReference(value="owner_company")
+    private Company owner_company;
 
     @ManyToOne(fetch=FetchType.LAZY,optional=true)
     @JoinColumn(name = "employee_id",referencedColumnName = "id",nullable = true)
-    @JsonBackReference
-    private Employee employee;
+    @JsonBackReference(value="owner_employee")
+    private Employee owner_employee;
 
 
 

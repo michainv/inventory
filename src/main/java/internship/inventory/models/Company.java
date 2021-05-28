@@ -1,5 +1,6 @@
 package internship.inventory.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,16 +20,18 @@ public class Company {
     @Column(name="id")
     private Integer id;
 
-    @Column(name= "name")
+    @Column(name= "name",length = 255,nullable = false,unique = true)
     private String name;
 
-    @Column(name= "address")
+    @Column(name= "address",length = 255,nullable = false)
     private String address;
 
-    @OneToMany(mappedBy="company")
+    @JsonManagedReference(value="work_company")
+    @OneToMany(mappedBy="work_company")
     private List<Employee> employees;
 
-    @OneToMany(mappedBy="company")
+    @JsonManagedReference(value="owner_company")
+    @OneToMany(mappedBy="owner_company")
     private List<Device> devices;
 
 

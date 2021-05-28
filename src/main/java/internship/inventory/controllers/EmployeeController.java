@@ -26,18 +26,19 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Employee> getEmployeeByID(@RequestParam(value = "id") Integer id) {
+    public Optional<Employee> getEmployeeByID(@PathVariable (name = "id") Integer id) {
         System.out.println("CALLED GET BY ID");
         return employeeService.getEmployeeById(id);
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PutMapping
+
+    public void updateEmployee(@RequestBody Employee employee){ employeeService.updateEmployee(employee);}
+
+    @PostMapping
     public void addEmployee(@RequestBody Employee employee)
     {
-
-        System.out.println("CALLED POST  "+employee.getName());
-//        employeeService.addEmployee(employee);
-
+        employeeService.addEmployee(employee);
     }
 
 
