@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/employee/")
+@RequestMapping(value = "api/employee")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -19,42 +19,43 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("get/all")
+    @GetMapping
     public List<Employee> getAllEmployees() {
         System.out.println("CALLED GET ALL");
         return employeeService.getAllEmployees();
     }
 
-    @GetMapping("/get/id/{id}")
-    public Optional<Employee> getEmployeeByID(@PathVariable("id") Integer id) {
+    @GetMapping("/{id}")
+    public Optional<Employee> getEmployeeByID(@RequestParam(value = "id") Integer id) {
         System.out.println("CALLED GET BY ID");
         return employeeService.getEmployeeById(id);
     }
 
-    @GetMapping("/get/name/{name}")
-    public List<Employee> getEmployeeByName(@PathVariable("name") String name){
-        System.out.println("CALLED GET BY NAME");
-        return employeeService.getEmployeeByName(name);
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public void addEmployee(@RequestBody Employee employee)
+    {
+
+        System.out.println("CALLED POST  "+employee.getName());
+//        employeeService.addEmployee(employee);
+
     }
 
-    @DeleteMapping("/delete/{id}")
+
+    @DeleteMapping("/{id}")
     public void deleteEmployeeByID(@PathVariable("id") Integer id){
+
         System.out.println("CALLED DELETE");
         employeeService.deleteEmployeeByID(id);
     }
 
-    @PutMapping("/update/{id}")
+
+    @PutMapping
     public int updateEmployee(@PathVariable("id") Integer id){
         System.out.println("updating");
         return 1;
 //        return employeeService.updateEmployee(id,employee);
     }
 
-    @PostMapping(path= "/add")
-    public void addEmployee(@RequestBody  Employee employee){
-        System.out.println("CALLED POST");
-        employeeService.addEmployee(employee);
 
-    }
 
 }

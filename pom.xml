@@ -14,6 +14,9 @@
 	<name>inventory</name>
 	<description>Inventory Project</description>
 	<properties>
+
+		<property name="show_sql">true</property>
+
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>

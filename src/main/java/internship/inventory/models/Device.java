@@ -2,6 +2,7 @@ package internship.inventory.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -23,21 +24,22 @@ public class Device {
     @Column(name = "type")
     private String type;
 
-//    @Column(name = "company_id",insertable = false , updatable = false)
-//    private int company_id;
-//
-//    @Column(name = "employee_id",insertable = false , updatable = false)
-//    private int employee_id;
+    @Column(name = "company_id",insertable = false , updatable = false)
+    private Integer company_id;
 
-    @ManyToOne
+    @Column(name = "employee_id",insertable = false , updatable = false)
+    private Integer employee_id;
+
+    @ManyToOne(fetch=FetchType.LAZY,optional=false)
     @JoinColumn(name = "company_id",referencedColumnName = "id",nullable = false)
     @JsonBackReference
     private Company company;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id",referencedColumnName = "id",nullable = false)
+    @ManyToOne(fetch=FetchType.LAZY,optional=true)
+    @JoinColumn(name = "employee_id",referencedColumnName = "id",nullable = true)
     @JsonBackReference
     private Employee employee;
+
 
 
 }

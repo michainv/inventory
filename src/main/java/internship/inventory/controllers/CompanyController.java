@@ -5,9 +5,7 @@ import internship.inventory.models.Employee;
 import internship.inventory.services.CompanyService;
 import internship.inventory.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,10 +20,17 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping("get/all")
+    @GetMapping("/get/all")
     public List<Company> getAllEmployees() {
         System.out.println("CALLED GET ALL");
         return companyService.getAllCompanies();
+    }
+
+    @PostMapping("/add")
+    public void add(@RequestBody Company company){
+        System.out.println(company.getName());
+        System.out.println(company.getAddress());
+
     }
 
 
